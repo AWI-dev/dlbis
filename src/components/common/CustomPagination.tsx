@@ -1,7 +1,13 @@
 import { Button, Pagination } from '@nextui-org/react';
 import React from "react";
 
-const CustomPagination = ({ pages, page, setPage}) => {
+type CustomPaginationProps = {
+  pages: any;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const CustomPagination: React.FC<CustomPaginationProps> = ({ pages, page, setPage}) => {
   
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -16,7 +22,7 @@ const CustomPagination = ({ pages, page, setPage}) => {
 
   return (
     <div className="py-2 px-2 flex justify-end items-center">
-      <div className="flex w-[100%] justify-end gap-2 items-center">
+      <div className="hidden sm:flex w-[100%] justify-end gap-2 items-center">
         <Button
           isDisabled={pages === 1}
           size="sm"

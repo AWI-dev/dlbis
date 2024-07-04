@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 
 import {
   Table,
@@ -14,13 +14,12 @@ import {
   ModalContent,
   ModalBody,
   useDisclosure,
-  Tooltip,
   ModalHeader,
   Divider,
   Spinner,
   Textarea,
 } from "@nextui-org/react";
-import {  Download, Eye, Plus, Upload } from "lucide-react";
+import {  Download, Eye, Plus} from "lucide-react";
 import "react-toastify/dist/ReactToastify.css";
 import CustomPagination from "../../components/common/CustomPagination";
 import useTableHeader from "../../hooks/TableHooks/useTableHeader";
@@ -38,10 +37,6 @@ export default function Dashboard() {
   const endpoint = "storage/type";
   //#region Use Effect
 
-  type TSelectedData = {
-    name: string;
-    id: string;
-  };
   //#endregion
 
   //#region Inial column
@@ -105,8 +100,7 @@ export default function Dashboard() {
   //#endregion
 
   //#region State
-  const [isLoading, setIsLoading] = useState(false);
-;
+  const [isLoading] = useState(false);
 
   // const [selectedData, setSelectedData] = useState<TSelectedData | null>(null);
 
@@ -119,7 +113,7 @@ export default function Dashboard() {
     direction: "ascending",
   });
 
-  const [operationType, setOperationType] = useState<"create" | "update">(
+  const operationType = useState<"create" | "update">(
     "create"
   );
 

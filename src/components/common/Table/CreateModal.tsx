@@ -15,17 +15,17 @@ import API_BASE_URL from "../../../global/apiConfig";
 import { mutate } from "swr";
 import useFieldValidator from "../../../hooks/useFieldValidator";
 
-const CreateModal = ({
-  isOpen,
-  onOpenChange,
-  operationType,
-  formData,
-  setFormData,
-}) => {
+const CreateModal = (
+  isOpen:any,
+  onOpenChange:any,
+  operationType:any,
+  formData:any,
+  setFormData:any,
+) => {
   const { validateField, errors } = useFieldValidator();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
     const isCategoryNameValid = validateField("name", formData.name);
     if (!isCategoryNameValid) return;
@@ -101,7 +101,7 @@ const CreateModal = ({
                   value={formData?.name}
                   errorMessage={errors?.name}
                   onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, name: e.target.value }))
+                    setFormData((prev:any) => ({ ...prev, name: e.target.value }))
                   }
                   label="Category Name"
                 />

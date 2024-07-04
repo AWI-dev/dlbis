@@ -21,7 +21,7 @@ import Breadcrumb from "../../components/common/Breadcrumb";
 import BulkModal from "../../components/common/BulkModal";
 
 export default function Dashboard() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
   const endpoint = "storage/type";
 

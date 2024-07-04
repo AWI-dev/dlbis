@@ -1,7 +1,7 @@
 import { Tooltip } from "@nextui-org/react";
 import { Pen, Trash } from "lucide-react";
 
-const ActionCell = ({ item, handleGetID, handleOpenDelete }) => (
+const ActionCell = ( item:any, handleGetID:any, handleOpenDelete:any ) => (
   <div className="relative flex justify-end items-center gap-2 pr-5">
     <Tooltip
       content="Update"

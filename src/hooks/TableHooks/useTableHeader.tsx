@@ -10,7 +10,7 @@ const useTableHeader = (initialColumns: any, columns:any) => {
 
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;
-    return columns.filter((column) =>
+    return columns.filter((column:any) =>
       Array.from(visibleColumns).includes(column.uid)
     );
   }, [visibleColumns]);

@@ -1,7 +1,13 @@
 import React from "react";
 
-const useTableSort = (filteredItems, page, rowsPerPage, sortDescriptor ,setPage ,setRowsPerPage) => {
-
+const useTableSort = (
+  filteredItems: any,
+  page: any,
+  rowsPerPage: any,
+  sortDescriptor: any,
+  setPage: any,
+  setRowsPerPage: any
+) => {
   const RowsPerPage = [
     { label: "10", value: "10" },
     { label: "20", value: "20" },
@@ -35,10 +41,11 @@ const useTableSort = (filteredItems, page, rowsPerPage, sortDescriptor ,setPage 
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       setRowsPerPage(Number(e.target.value));
       setPage(1);
-    },[]
+    },
+    []
   );
 
-  return { items, sortedItems , pages , onRowsPerPageChange , RowsPerPage };
+  return { items, sortedItems, pages, onRowsPerPageChange, RowsPerPage };
 };
 
 export default useTableSort;

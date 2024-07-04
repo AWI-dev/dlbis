@@ -1,6 +1,6 @@
 import React from "react";
 
-const useTableFilter = (dataList, filters, setPage) => {
+const useTableFilter = (dataList:any, filters:any, setPage:any) => {
   const [filterValue, setFilterValue] = React.useState("");
 
   if (!Array.isArray(dataList)) {
@@ -8,7 +8,7 @@ const useTableFilter = (dataList, filters, setPage) => {
   }
   const filteredItems = dataList.filter((data) => {
     const lowerCaseFilterValue = filterValue.toLowerCase();
-    return filters.some((filter) => {
+    return filters.some((filter:any) => {
       const value = data[filter.key];
       if (value && typeof value === "string") {
         const lowerCaseValue = value.toLowerCase();

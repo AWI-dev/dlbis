@@ -1,6 +1,6 @@
 import { TableHeader, TableColumn } from "@nextui-org/react";
 
-const CustomTableHeader = ({ headerColumns }) => {
+const CustomTableHeader = ( headerColumns:any) => {
   return (
     <TableHeader columns={headerColumns}>
       {(column: any) => (

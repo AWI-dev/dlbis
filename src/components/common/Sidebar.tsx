@@ -1,16 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 // import Logo from '../images/logo/logo.png';
-import SidebarLinkGroup from "./SidebarLinkGroup";
 import Logo from "../common/Logo";
 import {
-  CalendarDays,
-  ChevronLeft,
   LayoutGrid,
-  NotebookPen,
-  Settings,
-  Store,
-  Users,
   X,
 } from "lucide-react";
 
@@ -27,7 +20,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const sidebar = useRef<any>(null);
 
   const storedSidebarExpanded = localStorage.getItem("sidebar-expanded");
-  const [sidebarExpanded, setSidebarExpanded] = useState(
+  const [sidebarExpanded] = useState(
     storedSidebarExpanded === null ? false : storedSidebarExpanded === "false"
   );
 
