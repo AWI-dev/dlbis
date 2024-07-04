@@ -18,14 +18,13 @@ async function fetchApi(
   headers: RequestHeaders = { 'Content-Type': 'application/json'}
 ): Promise<any> {
 
-  const cookieValue = getCookie('omg');
+  const cookieValue = getCookie('dlbis');
   let accessToken:any = null;
   
   if (cookieValue) {
     accessToken = decryptData(cookieValue);
   }
   console.log('accessToken', accessToken);
-  
   const requestOptions: RequestInit = {
     method,
     headers :{
