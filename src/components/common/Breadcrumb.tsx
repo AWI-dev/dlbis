@@ -18,7 +18,7 @@ const Breadcrumb = ({ items, pageName }: BreadcrumbProps) => {
         {pageName}
       </h1>
       <nav>
-        <ol className="md:flex items-center gap-2 text-sm">
+        <ol className="flex items-center gap-2 text-sm">
           {items.map((item, index) => (
             <li key={index}>
               {item.path ? (

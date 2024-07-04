@@ -3,6 +3,10 @@ import { Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import routes from "./routes";
 import Loader from "./components/common/Loader";
+import Login from "./pages/Auth/Login";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import ForgotSuccess from "./pages/Auth/ForgotSuccess";
+import CreatePassword from "./pages/Auth/CreatePassword";
 
 const DefaultLayout = lazy(() => import("./components/layout/DefaultLayout"));
 
@@ -18,8 +22,11 @@ function App() {
   ) : (
     <>
       <Routes>
-        {/*     <Route path="/auth/signin" element={<SignIn />} />
-        <Route path="/auth/signup" element={<SignUp />} /> */}
+      <Route index element={<Login />} />
+      <Route path="/password/forgot" element={<ForgotPassword />} />
+      <Route path="/password/forgot/:email?/success" element={<ForgotSuccess />} />
+      <Route path="/password/create/:token?" element={<CreatePassword />} />
+      <Route path="/password/reset/:token?" element={<CreatePassword />} />
         <Route element={<DefaultLayout />}>
           <Route index element={<Dashboard />} />
           {routes.map((route, index) => {

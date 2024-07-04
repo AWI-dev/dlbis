@@ -34,9 +34,9 @@ const useCrud = () => {
   //#endregion
 
   //#region CRUD
-  const GET = async (endpoint: string, id: any, externalUrl: string = "") => {
+  const GET = async (endpoint: string, externalUrl: string = "") => {
     try {
-      const response = await useApiFetch(externalUrl, `${endpoint}/get/${id}`, [], "GET");
+      const response = await useApiFetch(externalUrl, `${endpoint}`, [], "GET");
       return handleApiResponse(response,false);
     } catch (error: any) {
       handleError(error);
