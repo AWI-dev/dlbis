@@ -12,7 +12,7 @@ module.exports = withMT({
     extend: {
       fontFamily: {
         header: ['Source Serif Pro', 'serif'],
-        body: ['Montserrat', 'sans-serif'],
+        body: ['Poppins', 'sans'],
       },
       colors: {
         background: "#EFEFEF",
