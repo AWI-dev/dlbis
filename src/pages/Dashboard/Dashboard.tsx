@@ -239,7 +239,7 @@ export default function Dashboard() {
     <>
     <Breadcrumb
         pageName="Dashboard"
-        items={[{ name: "Dashboard", path: "/" }, { name: "Data" }]}
+        items={[{ name: "Dashboard", path: "../dashboard" }, { name: "Data" }]}
       />
 
 

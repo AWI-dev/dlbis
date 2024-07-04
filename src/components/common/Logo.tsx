@@ -1,4 +1,4 @@
-import Logo from '../../assets/Images/logo.png';
+import Logo from '../../assets/Images/logo (2).png';
 
 const Breadcrumb = () => {
   return (

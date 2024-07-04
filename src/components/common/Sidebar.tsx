@@ -82,7 +82,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         </button>
       </div>
       <div className="flex items-center flex-col lg:flex-row justify-between lg:justify-center gap-2 px-6 py-5 lg:py-6 pt-10">
-        <NavLink to="/" className="order-2">
+        <NavLink to="../dashboard" className="order-2">
           <Logo />
         </NavLink>
       </div>
@@ -95,9 +95,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <ul className="mb-6 flex flex-col gap-3">
               <li>
                 <NavLink
-                  to="/"
+                  to="../dashboard"
                   className={`text-md  flex items-center gap-6 rounded-md p-2 text-customPrimary duration-300 ease-in-out hover:bg-cta hover:text-white dark:hover:bg-meta-4 ${
-                    pathname === "/" && "bg-cta dark:bg-meta-4 !text-white"
+                    pathname === "../dashboard" && "bg-cta dark:bg-meta-4 !text-white"
                   }`}
                 >
                   <LayoutGrid className="h-5" />
