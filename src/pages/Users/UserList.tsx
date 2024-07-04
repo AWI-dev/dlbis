@@ -5,7 +5,7 @@ function UserList() {
     <div>
         <Breadcrumb
             pageName="User List"
-            items={[{ name: "Dashboard", path: "/" }, { name: "User List" }]}
+            items={[{ name: "Dashboard", path: "../dashboard" }, { name: "User List" }]}
           />
     </div>
   )

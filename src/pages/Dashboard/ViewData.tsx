@@ -65,10 +65,10 @@ export default function Dashboard() {
     <>
       <Breadcrumb
         pageName="Dashboard"
-        items={[{ name: "Dashboard", path: "/" }, { name: "View Data" }]}
+        items={[{ name: "Dashboard", path: "../dashboard" }, { name: "View Data" }]}
       />
 
-      <div className="flex ">
+      <div className="md:flex ">
         <div className="basis-6/12">
           <div className="flex justify-start">
           <Input
@@ -82,7 +82,7 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="basis-6/12">
-          <div className="mb-4 flex justify-end gap-4">
+          <div className="mb-4 flex justify-between md:justify-end gap-4 my-3 md:my-0">
             <Button
               onPress={onOpenCreate}
               color="primary"
@@ -105,7 +105,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-5 font-body py-4">
+      <div className="grid md:grid-cols-3 gap-5 font-body py-4">
         <div className="">
           <Card>
             <CardBody className="p-5">

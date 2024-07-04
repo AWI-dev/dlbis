@@ -10,7 +10,7 @@ const useFieldValidator = () => {
     if (!value) {
       setErrors((prev) => ({
         ...prev,
-        [fieldName]: `This field is required.`,
+        [fieldName]: `Please fill out this field.`,
       }));
       return false;
     } else {
