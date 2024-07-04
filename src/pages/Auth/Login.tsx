@@ -33,7 +33,7 @@ export default function Login() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
-    await POST(`${endpoint}`, formData).then((res: any) => {
+    await POST(endpoint, formData).then((res: any) => {
       console.log('res', res);
       if (res?.token) {
         showToast(res?.success?.message, "success");
