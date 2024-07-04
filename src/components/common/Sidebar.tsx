@@ -111,7 +111,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Dashboard
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink
                   to="/users"
                   className={`text-md flex items-center gap-6 rounded-md p-2 text-customPrimary duration-300 ease-in-out hover:bg-cta hover:text-white dark:hover:bg-meta-4 ${
@@ -122,7 +122,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   <Users className="h-5" />
                   Users
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
           </div>
         </nav>
