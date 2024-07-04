@@ -2,9 +2,9 @@ import { lazy } from "react";
 
 const coreRoutes = [
   {
-    path: "/playground/buttons",
-    title: "Buttons",
-    component: lazy(() => import("../pages/Dashboard/Dashboard")),
+    path: "/dashboard/view-data/:id?",
+    title: "Data",
+    component: lazy(() => import("../pages/Dashboard/ViewData")),
   },
   {
     path: "/users",

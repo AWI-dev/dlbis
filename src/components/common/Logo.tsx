@@ -4,7 +4,7 @@ const Breadcrumb = () => {
   return (
     <>
       <div className="flex justify-center mt-4">
-        <img className="w-24 flex justify-center" src={Logo} alt="Logo" />
+        <img className="w-16 flex justify-center" src={Logo} alt="Logo" />
       </div>
     </>
   );
