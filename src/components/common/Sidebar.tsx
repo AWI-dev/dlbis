@@ -92,7 +92,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         <NavLink to="/" className="order-2">
           <Logo />
         </NavLink>
-       
       </div>
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear font-semibold ">
@@ -124,98 +123,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Users
                 </NavLink>
               </li>
-              <SidebarLinkGroup
-                activeCondition={
-                  pathname === "/settings" || pathname.includes("settings")
-                }
-              >
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <NavLink
-                        to="#"
-                        className={`text-md flex items-center gap-6 rounded-md p-2 text-customPrimary duration-300 ease-in-out hover:bg-cta hover:text-white dark:hover:bg-meta-4 ${
-                          (pathname === "/settings" ||
-                            pathname.includes("settings")) &&
-                          "bg-cta dark:bg-meta-4 !text-white"
-                        }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded
-                            ? handleClick()
-                            : setSidebarExpanded(true);
-                        }}
-                      >
-                        <Settings className="h-5" />
-                        Settings
-                        <ChevronLeft
-                          className={`h-4 transition-transform transform ${
-                            open ? "-rotate-90" : "rotate-0"
-                          }`}
-                        />
-                      </NavLink>
-                      {/* <!-- Dropdown Menu Start --> */}
-                      <div
-                        className={`translate transform overflow-hidden ${
-                          !open && "hidden"
-                        }`}
-                      >
-                        <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 text-sm border-l border-customPrimary max-w-20">
-                          <li>
-                            <NavLink
-                              to="/settings/category"
-                              onClick={() => setSidebarOpen(!sidebarOpen)}
-                              className={({ isActive }) =>
-                                "group relative flex w-96 items-center gap-2.5 rounded-md px-4 font-medium text-customPrimary duration-300 ease-in-out hover:text-cta " +
-                                (isActive && "!text-cta")
-                              }
-                            >
-                              Category
-                            </NavLink>
-                          </li>
-                          <li>
-                            <NavLink
-                              to="/settings/critical-deviation"
-                              onClick={() => setSidebarOpen(!sidebarOpen)}
-                              className={({ isActive }) =>
-                                "group relative flex w-96 items-center gap-2.5 rounded-md px-4 font-medium text-customPrimary duration-300 ease-in-out hover:text-cta " +
-                                (isActive && "!text-cta")
-                              }
-                            >
-                              Critical Deviation
-                            </NavLink>
-                          </li>
-                          <li>
-                            <NavLink
-                              to="/settings/sanitary"
-                              onClick={() => setSidebarOpen(!sidebarOpen)}
-                              className={({ isActive }) =>
-                                "group relative flex w-96 items-center gap-2.5 rounded-md px-4 font-medium text-customPrimary duration-300 ease-in-out hover:text-cta " +
-                                (isActive && "!text-cta")
-                              }
-                            >
-                              Sanitation Defect
-                            </NavLink>
-                          </li>
-                          <li>
-                            <NavLink
-                              to="/settings/dropdown"
-                              onClick={() => setSidebarOpen(!sidebarOpen)}
-                              className={({ isActive }) =>
-                                "group relative flex w-96 items-center gap-2.5 rounded-md px-4 font-medium text-customPrimary duration-300 ease-in-out hover:text-cta " +
-                                (isActive && "!text-cta")
-                              }
-                            >
-                              Dropdown
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
-                      {/* <!-- Dropdown Menu End --> */}
-                    </React.Fragment>
-                  );
-                }}
-              </SidebarLinkGroup>
             </ul>
           </div>
         </nav>
