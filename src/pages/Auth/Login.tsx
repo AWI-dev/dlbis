@@ -4,27 +4,23 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
-import useFieldValidator from "../../hooks/useFieldValidator";
-import useApiFetch from "../../hooks/useApiRequest";
 import useToast from "../../hooks/useToast";
 import useCookie from "../../hooks/useCookie";
 import useEncryption from "../../hooks/useEncryption";
 import SHARED_KEY from "../../global/sharedKey";
-import useLogin from "../../hooks/useLogin";
+import useCrud from "../../hooks/CrudHooks/useCrud";
 
 export default function Login() {
+  const endpoint = "login";
   //#region Type
   type TAuth = {
     employee_id: string;
     password: string;
   };
   //#endregion
-  const { encryptData  } = useEncryption(SHARED_KEY);
+  const { POST } = useCrud();
+  const { encryptData } = useEncryption(SHARED_KEY);
   const { setCookie } = useCookie();
-  const { setLogin } = useLogin();
- 
-
-  const { validateField, errors } = useFieldValidator();
   const showToast = useToast();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -36,49 +32,21 @@ export default function Login() {
   const toggleVisibility = () => setIsVisible(!isVisible);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const isEmployeeIdValid = validateField(
-      "employee id",
-      formData.employee_id
-    );
-    const isPasswordValid = validateField("password", formData.password);
-    if (!isEmployeeIdValid || !isPasswordValid) return;
     setIsLoading(true);
-    useApiFetch(
-      '',
-      "login",
-      formData,
-      "POST"
-    ).then((res: any) => {
-      if (res?.success) {
+    await POST(`${endpoint}`, formData).then((res: any) => {
+      console.log('res', res);
+      if (res?.token) {
         showToast(res?.success?.message, "success");
         navigate("/dashboard");
-        const onLogin = setLogin(
-        [
-          {"url" : "http://127.0.0.1:8000/api/v1/", "system": "scm"},
-          // {"url" : "https://mos-api-test.onemarygrace.com/api/v1/", "system": "scm"}
-        ],
-        {
-          "employee_id": formData.employee_id,
-          "position" : res.success.data.employment_details.position_id,
-          "prefix" : res.success.data.user_details.prefix,
-          "first_name" : res.success.data.user_details.first_name,
-          "middle_name" : res.success.data.user_details.middle_name,
-          "last_name" : res.success.data.user_details.last_name,
-          "suffix" : res.success.data.user_details.suffix,
-          "user_access" : ''
-        });
-     
-        if(onLogin){
-          setCookie("omg", encryptData(res.success.data.token));
-          setCookie("user_details", encryptData(JSON.stringify(res.success.data)));
-        }
-      } else {
-        showToast(res?.error?.message, "error");
+        setCookie("dlbis", encryptData(res.token));
+        setCookie(
+          "user_details",
+          encryptData(JSON.stringify(res.employee_details))
+        );
       }
       setIsLoading(false);
     });
   };
-
 
   return (
     <>
@@ -86,7 +54,6 @@ export default function Login() {
         <div className="basis-7/12">
           <div className="flex h-screen max-h-screen items-center justify-center">
             <div className="flex flex-col items-center w-96 md:w-[48%]">
-           
               <div className="text-customPrimary text-3xl 3xl:text-5xl font-bold font-header mt-2 mb-10">
                 System Ni Daddy!~
               </div>
@@ -97,31 +64,37 @@ export default function Login() {
                   </div>
                   <form onSubmit={handleSubmit}>
                     <div className="font-body flex flex-col gap-y-5">
-                    <Input
-                      autoComplete="false"
-                      autoFocus
-                      size="md"
-                      type="text"
-                      label="Employee ID"
-                      isRequired
-                      isInvalid={!!errors.employee_id}
-                      errorMessage={errors.employee_id}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        if (/^\d*$/.test(value)) {
-                          setFormData({
-                            ...formData,
-                            employee_id: value,
-                          });
-                          validateField("employee_id", value);
-                        }
-                      }}
-                      onKeyDown={(e) => {
-                        if (!/[0-9]/.test(e.key) && !["Backspace", "Delete", "ArrowLeft", "ArrowRight", "Tab"].includes(e.key)) {
-                          e.preventDefault();
-                        }
-                      }}
-                    />
+                      <Input
+                        autoComplete="false"
+                        autoFocus
+                        size="md"
+                        type="text"
+                        label="Employee ID"
+                        isRequired
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (/^\d*$/.test(value)) {
+                            setFormData({
+                              ...formData,
+                              employee_id: value,
+                            });
+                          }
+                        }}
+                        onKeyDown={(e) => {
+                          if (
+                            !/[0-9]/.test(e.key) &&
+                            ![
+                              "Backspace",
+                              "Delete",
+                              "ArrowLeft",
+                              "ArrowRight",
+                              "Tab",
+                            ].includes(e.key)
+                          ) {
+                            e.preventDefault();
+                          }
+                        }}
+                      />
                       <Input
                         isRequired
                         autoComplete="false"
@@ -141,14 +114,11 @@ export default function Login() {
                           </button>
                         }
                         type={isVisible ? "text" : "password"}
-                        isInvalid={!!errors.password}
-                        errorMessage={errors.password}
                         onChange={(e) => {
                           setFormData({
                             ...formData,
                             password: e.target.value,
                           });
-                          validateField("password", e.target.value);
                         }}
                       />
                       <div className="flex justify-end">

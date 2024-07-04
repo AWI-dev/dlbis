@@ -9,10 +9,9 @@ const useDecryptedUserData = () => {
   const userData = (type: string) => {
     const encryptedUserData = getCookie("user_details");
     if (encryptedUserData) {
-      return JSON?.parse(decryptData(encryptedUserData))?.user_details?.[type];
+      return JSON?.parse(decryptData(encryptedUserData))?.[type];
     }
   };
-
   return userData;
 };
 
