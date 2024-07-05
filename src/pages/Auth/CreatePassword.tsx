@@ -118,7 +118,7 @@ export default function CreatePassword() {
             <div className="flex flex-col items-center w-96 md:w-[48%]">
               {/* <img src={logo} className="2xs:w-16 sm:w-20 lg:w-10 3xl:w-24" /> */}
               <div className="text-customPrimary text-3xl 3xl:text-5xl font-bold font-header mt-2 mb-10">
-               System Ni Daddy!~
+               Requisition Recovery System
               </div>
               <Card radius="sm" fullWidth>
                 <CardBody className="p-10 w-full py-10">
