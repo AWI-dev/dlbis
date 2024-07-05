@@ -32,9 +32,7 @@ export default function Login() {
   });
   const toggleVisibility = () => setIsVisible(!isVisible);
   const handleSubmit = async () => {
-
     setIsLoading(true);
-
     useApiFetch(API_BASE_URL, "login", formData, "POST").then((res: any) => {
       setCookie("rrf", encryptData(res?.success?.data?.token));
       setCookie("user_details", encryptData(JSON.stringify(res?.success?.data)));

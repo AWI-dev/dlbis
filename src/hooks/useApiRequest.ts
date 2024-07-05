@@ -9,41 +9,47 @@ type RequestHeaders = Record<string, string>;
 
 const { getCookie } = useCookie();
 const { decryptData } = useEncryption(SHARED_KEY);
-
+const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+let csrf_token: string | null = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : null;
 
 async function fetchApi(
   api: string | null,
   urlPath: string,
   requestData: RequestData,
   method: RequestMethod,
-  headers: RequestHeaders = { 'Content-Type': 'application/json'}
+  headers: RequestHeaders = { 'Content-Type': 'application/json' },
 ): Promise<any> {
   const cookieValue = getCookie('rrf');
-  let accessToken:any = null;
+  let accessToken: string | null = null;
   
   if (cookieValue) {
     accessToken = decryptData(cookieValue);
   }
+  
   const requestOptions: RequestInit = {
     method,
-    headers :{
+    headers: {
       ...headers,
-      'Authorization': `Bearer ${accessToken}`
+      'Authorization': accessToken ? `Bearer ${accessToken}` : '',
+      'X-CSRF-TOKEN': csrf_token || '',
     },
-    body: method === 'POST' ? JSON.stringify(requestData) : undefined,
+    body: method === 'POST' || method === 'PUT' ? JSON.stringify(requestData) : undefined,
   };
+  
   try {
     let endpoint = API_BASE_URL + urlPath;
-    if(api){
+    if (api) {
       endpoint = api + urlPath;
     }
-  
     
-    const response = await fetch(endpoint, requestOptions as RequestInit);
+    const response = await fetch(endpoint, requestOptions);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     return await response.json();
-  } catch (err:any) {
+  } catch (err: any) {
     console.error('Error caught:', err.message);
-    err['code'] = 'Failed';
+    err.code = 'Failed';
     throw err;
   }
 }
