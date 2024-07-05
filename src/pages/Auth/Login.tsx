@@ -55,13 +55,11 @@ export default function Login() {
           <div className="flex h-screen max-h-screen items-center justify-center">
             <div className="flex flex-col items-center w-96 md:w-[48%]">
               <div className="text-customPrimary text-3xl 3xl:text-5xl font-bold font-header mt-2 mb-10">
-                System Ni Daddy!~
+                Requisition Recovery System
               </div>
               <Card radius="sm" fullWidth>
                 <CardBody className="p-10 w-full py-10">
-                  <div className="font-body text-xl font-bold text-start mb-10">
-                    Welcome Back Daddy!
-                  </div>
+            
                   <form onSubmit={handleSubmit}>
                     <div className="font-body flex flex-col gap-y-5">
                       <Input

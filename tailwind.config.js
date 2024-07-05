@@ -17,7 +17,7 @@ module.exports = withMT({
       colors: {
         background: "#EFEFEF",
         sidebar: "#1b3140",
-        customPrimary:"#5B839A",
+        customPrimary: "#5B839A",
         customsecondary: "#F97126",
         accentwhite: "#FCF9F6",
         accent: "#FFE7AD",
@@ -264,5 +264,5 @@ module.exports = withMT({
       },
     },
   },
-  plugins: [nextui()],
+  plugins: [nextui(), require('tailwind-scrollbar'),],
 });

@@ -14,7 +14,7 @@ import {
   Card,
   CardBody,
 } from "@nextui-org/react";
-import { Download, Plus, Search, Upload } from "lucide-react";
+import { Download, Plus, Search, Trash, Upload } from "lucide-react";
 import "react-toastify/dist/ReactToastify.css";
 
 import Breadcrumb from "../../components/common/Breadcrumb";
@@ -47,6 +47,51 @@ export default function Dashboard() {
     description: "",
   });
 
+  const [serialNumberData, setSerialNumberData] = useState([
+    {
+      item_key: "1",
+      serial_number: "202401L177036001",
+    },
+    {
+      item_key: "2",
+      serial_number: "202401L177036002",
+    },
+    {
+      item_key: "3",
+      serial_number: "202401L177036003",
+    },
+    {
+      item_key: "4",
+      serial_number: "202401L177036004",
+    },
+    {
+      item_key: "5",
+      serial_number: "202401L177036005",
+    },
+    {
+      item_key: "6",
+      serial_number: "202401L177036006",
+    },
+    {
+      item_key: "7",
+      serial_number: "202401L177036007",
+    },
+    {
+      item_key: "8",
+      serial_number: "202401L177036008",
+    },
+    {
+      item_key: "9",
+      serial_number: "202401L177036009",
+    },
+    {
+      item_key: "10",
+      serial_number: "202401L177036010",
+    },
+  ]);
+
+  const [newSerialNumber, setNewSerialNumber] = useState("");
+
   //#region useDisclosure
 
   const {
@@ -55,40 +100,55 @@ export default function Dashboard() {
     onOpenChange: onOpenChangeBulkUpload,
   } = useDisclosure();
 
-  const {
-    isOpen: isOpenCreate,
-    onOpen: onOpenCreate,
-    onOpenChange: onOpenChangeCreate,
-  } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const handleAddSerialNumber = () => {
+    if (newSerialNumber.trim() === "") return;
+
+    const newItemKey = (
+      parseInt(serialNumberData[serialNumberData.length - 1]?.item_key || "0") +
+      1
+    ).toString();
+
+    const newSerialNumberData = {
+      item_key: newItemKey,
+      serial_number: newSerialNumber,
+    };
+
+    setSerialNumberData((prevData) => [...prevData, newSerialNumberData]);
+    setNewSerialNumber("");
+  };
+
+  const handleDeleteSerialNumber = (itemKey: any) => {
+    setSerialNumberData((prevData) =>
+      prevData.filter((data) => data.item_key !== itemKey)
+    );
+  };
 
   return (
     <>
       <Breadcrumb
         pageName="Dashboard"
-        items={[{ name: "Dashboard", path: "../dashboard" }, { name: "View Data" }]}
+        items={[
+          { name: "Dashboard", path: "../dashboard" },
+          { name: "View Data" },
+        ]}
       />
 
       <div className="md:flex ">
         <div className="basis-6/12">
           <div className="flex justify-start">
-          <Input
-          isClearable
-          size="md"
-          className=""
-          placeholder="Search"
-          startContent={<Search size={16}/>}
-   
-        />
+            <Input
+              isClearable
+              size="md"
+              className=""
+              placeholder="Search"
+              startContent={<Search size={16} />}
+            />
           </div>
         </div>
         <div className="basis-6/12">
           <div className="mb-4 flex justify-between md:justify-end gap-4 my-3 md:my-0">
-            <Button
-              onPress={onOpenCreate}
-              color="primary"
-              endContent={<Plus size={"20"} />}>
-              Add New
-            </Button>
             <Button
               onPress={onOpenBulkUpload}
               color="primary"
@@ -105,498 +165,75 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-5 font-body py-4">
+      <div className="grid md:grid-cols-3 gap-5 font-body py-10">
         <div className="">
+          <div className="mb-4 text-xl font-semibold">
+            Material: DVTSAY002SBA
+          </div>
           <Card>
             <CardBody className="p-5">
-              <div className="flex">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
+              <div className="flex justify-between">
+                <div>
+                  <div className="text-xs">Material Description </div>
+                  <div className="text-sm font-semibold">
+                    TELSET,LAYADA,L177,CORDED,BINCID
+                  </div>
                 </div>
               </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
+              <div className="flex my-2">
+                <div className="basis-6/12">
+                  <div className="text-xs">Batch </div>
+                  <div className="text-sm font-semibold">0009216HBC</div>
                 </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
+                <div className="basis-6/12">
+                  <div className="text-xs">Storage Location </div>
+                  <div className="text-sm font-semibold">A431</div>
                 </div>
               </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="">
-          <Card>
-            <CardBody className="p-5">
-              <div className="flex">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
+              <div className="mt-4">
+                <div className="text-xs">Serial Number </div>
+                <div className="h-72  scrollbar-thumb-default-300 scrollbar-track-default-100 scrollbar-thin overflow-y-auto pr-3">
+                  {serialNumberData.map((data, index) => {
+                    return (
+                      <div key={index}>
+                        <div className="my-2 flex justify-between">
+                          <div className="text-sm font-semibold">
+                            {data.serial_number}
+                          </div>
+                          <div>
+                            <Trash
+                              onClick={() =>
+                                handleDeleteSerialNumber(data.item_key)
+                              }
+                              size={18}
+                              className="text-red-500"
+                            />
+                          </div>
+                        </div>
+
+                        <hr />
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="">
-          <Card>
-            <CardBody className="p-5">
-              <div className="flex">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="">
-          <Card>
-            <CardBody className="p-5">
-              <div className="flex">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="">
-          <Card>
-            <CardBody className="p-5">
-              <div className="flex">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="">
-          <Card>
-            <CardBody className="p-5">
-              <div className="flex">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="">
-          <Card>
-            <CardBody className="p-5">
-              <div className="flex">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="">
-          <Card>
-            <CardBody className="p-5">
-              <div className="flex">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-              </div>
-              <div className="flex my-3">
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
-                </div>
-                <div className="basis-4/12">
-                  <div className="text-xs">Label </div>
-                  <div className="text-sm font-semibold">Data</div>
+              <div className="mt-4 flex gap-x-10 pt-2">
+                <div className="text-xs basis-11/12">
+                  <Input
+                    size="sm"
+                    placeholder="Input Serial Number"
+                    value={newSerialNumber}
+                    onChange={(e) => setNewSerialNumber(e.target.value)}
+                  />
+                </div>
+                <div className="text-xs basis-1/12">
+                  <Button
+                    className="text-white"
+                    color="primary"
+                    size="sm"
+                    onPress={handleAddSerialNumber}>
+                    <Plus size={18} />
+                  </Button>
                 </div>
               </div>
             </CardBody>
@@ -604,33 +241,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <Modal
-        backdrop="opaque"
-        isOpen={isOpenCreate}
-        onOpenChange={onOpenChangeCreate}
-        classNames={{
-          base: "max-w-[100%] md:max-w-[50%] max-h-full h-full !mr-0 rounded-none absolute right-0",
-        }}
-        motionProps={{
-          variants: {
-            enter: {
-              x: 0,
-              opacity: 1,
-              transition: {
-                duration: 0.3,
-                ease: "easeOut",
-              },
-            },
-            exit: {
-              x: 700,
-              opacity: 0,
-              transition: {
-                duration: 0.2,
-                ease: "easeIn",
-              },
-            },
-          },
-        }}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent className="p-5">
           {() => (
             <>
@@ -653,10 +264,8 @@ export default function Dashboard() {
                         className="font-body"
                         isRequired
                         autoFocus
-                        // isInvalid={errors?.code ? true : false}
                         value={formData?.code}
-                        // errorMessage={errors?.code}
-                        onChange={(e: any) =>
+                        onChange={(e) =>
                           e.target.value !== undefined &&
                           setFormData((prevFormData) => ({
                             ...prevFormData,
@@ -669,10 +278,8 @@ export default function Dashboard() {
                         <Input
                           className="font-body"
                           isRequired
-                          // isInvalid={errors?.short_name ? true : false}
                           value={formData?.short_name}
-                          // errorMessage={errors?.short_name}
-                          onChange={(e: any) =>
+                          onChange={(e) =>
                             e.target.value !== undefined &&
                             setFormData((prevFormData) => ({
                               ...prevFormData,
@@ -684,10 +291,8 @@ export default function Dashboard() {
                         <Input
                           className="font-body"
                           isRequired
-                          // isInvalid={errors?.long_name ? true : false}
                           value={formData?.long_name}
-                          // errorMessage={errors?.long_name}
-                          onChange={(e: any) =>
+                          onChange={(e) =>
                             e.target.value !== undefined &&
                             setFormData((prevFormData) => ({
                               ...prevFormData,
@@ -699,10 +304,8 @@ export default function Dashboard() {
                       </div>
                       <Textarea
                         className="font-body mb-4"
-                        // isInvalid={errors?.description ? true : false}
                         value={formData?.description}
-                        // errorMessage={errors?.description}
-                        onChange={(e: any) =>
+                        onChange={(e) =>
                           e.target.value !== undefined &&
                           setFormData((prevFormData) => ({
                             ...prevFormData,
