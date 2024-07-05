@@ -33,6 +33,7 @@ export default function Login() {
   const toggleVisibility = () => setIsVisible(!isVisible);
   const handleSubmit = async () => {
     setIsLoading(true);
+    
     await useApiFetch(API_BASE_URL, "login", formData, "POST").then((res: any) => {
       console.log(res);
       

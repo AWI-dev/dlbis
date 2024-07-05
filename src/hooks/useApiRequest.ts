@@ -9,8 +9,10 @@ type RequestHeaders = Record<string, string>;
 
 const { getCookie } = useCookie();
 const { decryptData } = useEncryption(SHARED_KEY);
-const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
-let csrf_token: string | null = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : null;
+// const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+// let csrf_token: string | null = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : null;
+const csrfToken = (window as any).Laravel.csrfToken;
+console.log(csrfToken);
 
 async function fetchApi(
   api: string | null,
@@ -31,7 +33,7 @@ async function fetchApi(
     headers: {
       ...headers,
       'Authorization': accessToken ? `Bearer ${accessToken}` : '',
-      'X-CSRF-TOKEN': csrf_token || '',
+      'X-CSRF-TOKEN': csrfToken || '',
     },
     body: method === 'POST' || method === 'PUT' ? JSON.stringify(requestData) : undefined,
   };
