@@ -33,12 +33,12 @@ export default function Login() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
-    await POST(`${endpoint}`, formData).then((res: any) => {
+    await POST(endpoint, formData).then((res: any) => {
       console.log('res', res);
       if (res?.token) {
         showToast(res?.success?.message, "success");
         navigate("/dashboard");
-        setCookie("dlbis", encryptData(res.token));
+        setCookie("rrf", encryptData(res.token));
         setCookie(
           "user_details",
           encryptData(JSON.stringify(res.employee_details))
@@ -139,7 +139,7 @@ export default function Login() {
                 </CardBody>
               </Card>
               <div className="text-sm text-gray-400 italic mt-10 font-header">
-                © Copyright 2023. DLBIS. All rights reserved.
+                © Copyright 2023. AWI Solutions. All rights reserved.
               </div>
             </div>
           </div>

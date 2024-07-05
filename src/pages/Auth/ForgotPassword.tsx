@@ -109,7 +109,7 @@ export default function ForgotPassword() {
                 </CardBody>
               </Card>
               <div className="text-sm text-gray-400 italic mt-10 font-header">
-                © Copyright 2023. DLBIS. All rights reserved.
+                © Copyright 2023. AWI Solutions. All rights reserved.
               </div>
             </div>
           </div>

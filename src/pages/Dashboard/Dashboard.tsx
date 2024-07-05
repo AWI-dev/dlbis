@@ -42,13 +42,11 @@ export default function Dashboard() {
   //#region Inial column
   const columns = [
     { name: "ID", uid: "id", sortable: true },
-    { name: "Name", uid: "name", sortable: true },
+    { name: "Material", uid: "material", sortable: true },
     { name: "ACTION", uid: "action" },
   ];
   const initialColumns = [
-    "id",
-    "name",
-
+    "material",
     "action",
   ];
   //#endregion
