@@ -100,7 +100,7 @@ export default function Dashboard() {
     onOpenChange: onOpenChangeBulkUpload,
   } = useDisclosure();
 
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpenChange } = useDisclosure();
 
   const handleAddSerialNumber = () => {
     if (newSerialNumber.trim() === "") return;
