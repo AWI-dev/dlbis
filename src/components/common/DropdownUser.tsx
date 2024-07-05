@@ -14,7 +14,7 @@ export default function DropdownUser() {
   const navigate = useNavigate();
   const handleLogout = (): void => {
     const cookies: string[] = [
-      "dlbis", 
+      "rrf", 
       "user_details", 
     ];
     cookies.forEach(cookie => deleteCookie(cookie));
