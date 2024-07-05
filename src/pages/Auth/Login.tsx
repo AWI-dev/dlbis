@@ -3,22 +3,23 @@ import imageOnRight from "../../assets/Images/imageOnRight.jpg";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-
 import useToast from "../../hooks/useToast";
 import useCookie from "../../hooks/useCookie";
 import useEncryption from "../../hooks/useEncryption";
 import SHARED_KEY from "../../global/sharedKey";
-import useCrud from "../../hooks/CrudHooks/useCrud";
+import useApiFetch from "../../hooks/useApiRequest";
+import API_BASE_URL from "../../global/apiConfig";
 
 export default function Login() {
-  const endpoint = "login";
+
   //#region Type
   type TAuth = {
     employee_id: string;
     password: string;
   };
   //#endregion
-  const { POST } = useCrud();
+
+
   const { encryptData } = useEncryption(SHARED_KEY);
   const { setCookie } = useCookie();
   const showToast = useToast();
@@ -30,21 +31,15 @@ export default function Login() {
     password: "",
   });
   const toggleVisibility = () => setIsVisible(!isVisible);
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+
     setIsLoading(true);
-    
-    await POST(endpoint, formData).then((res: any) => {
-      console.log('res', res);
-      if (res?.token) {
-        showToast(res?.success?.message, "success");
-        navigate("/dashboard");
-        setCookie("rrf", encryptData(res.token));
-        setCookie(
-          "user_details",
-          encryptData(JSON.stringify(res.employee_details))
-        );
-      }
+
+    useApiFetch(API_BASE_URL, "login", formData, "POST").then((res: any) => {
+      setCookie("rrf", encryptData(res?.success?.data?.token));
+      setCookie("user_details", encryptData(JSON.stringify(res?.success?.data)));
+      navigate("/dashboard");
+      showToast(res?.success?.message, "success");
       setIsLoading(false);
     });
   };
@@ -61,7 +56,7 @@ export default function Login() {
               <Card radius="sm" fullWidth>
                 <CardBody className="p-10 w-full py-10">
             
-                  <form onSubmit={handleSubmit}>
+                  <form>
                     <div className="font-body flex flex-col gap-y-5">
                       <Input
                         autoComplete="false"
@@ -129,6 +124,7 @@ export default function Login() {
                         </Link>
                       </div>
                       <Button
+                      onPress={handleSubmit}
                         isLoading={isLoading}
                         type="submit"
                         className="bg-customPrimary text-white py-6"

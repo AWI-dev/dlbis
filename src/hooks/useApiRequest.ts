@@ -37,7 +37,7 @@ async function fetchApi(
     if(api){
       endpoint = api + urlPath;
     }
-    console.log(endpoint);
+  
     
     const response = await fetch(endpoint, requestOptions as RequestInit);
     return await response.json();
