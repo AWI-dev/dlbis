@@ -2,11 +2,11 @@ import { Button, Card, CardBody, Input } from "@nextui-org/react";
 import imageOnRight from "../../assets/Images/imageOnRight.jpg";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-import useToast from "../../hooks/useToast";
-import useCookie from "../../hooks/useCookie";
-import useEncryption from "../../hooks/useEncryption";
-import SHARED_KEY from "../../global/sharedKey";
+import { Link } from "react-router-dom";
+// import useToast from "../../hooks/useToast";
+// import useCookie from "../../hooks/useCookie";
+// import useEncryption from "../../hooks/useEncryption";
+// import SHARED_KEY from "../../global/sharedKey";
 import useApiFetch from "../../hooks/useApiRequest";
 import API_BASE_URL from "../../global/apiConfig";
 
@@ -20,10 +20,10 @@ export default function Login() {
   //#endregion
 
 
-  const { encryptData } = useEncryption(SHARED_KEY);
-  const { setCookie } = useCookie();
-  const showToast = useToast();
-  const navigate = useNavigate();
+  // const { encryptData } = useEncryption(SHARED_KEY);
+  // const { setCookie } = useCookie();
+  // const showToast = useToast();
+  // const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState<TAuth>({
@@ -34,11 +34,13 @@ export default function Login() {
   const handleSubmit = async () => {
     setIsLoading(true);
     await useApiFetch(API_BASE_URL, "login", formData, "POST").then((res: any) => {
-      setCookie("rrf", encryptData(res?.success?.data?.token));
-      setCookie("user_details", encryptData(JSON.stringify(res?.success?.data)));
-      navigate("/dashboard");
-      showToast(res?.success?.message, "success");
-      setIsLoading(false);
+      console.log(res);
+      
+      // setCookie("rrf", encryptData(res?.success?.data?.token));
+      // setCookie("user_details", encryptData(JSON.stringify(res?.success?.data)));
+      // navigate("/dashboard");
+      // showToast(res?.success?.message, "success");
+      // setIsLoading(false);
     });
   };
 
@@ -55,6 +57,7 @@ export default function Login() {
                 <CardBody className="p-10 w-full py-10">
             
                   <form>
+                    
                     <div className="font-body flex flex-col gap-y-5">
                       <Input
                         autoComplete="false"
