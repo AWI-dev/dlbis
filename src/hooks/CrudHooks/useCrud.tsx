@@ -55,6 +55,7 @@ const useCrud = () => {
     externalUrl: string = "",
     isToast: boolean = true
   ) => {
+    
     try {
       const response = await useApiFetch(
         externalUrl,
