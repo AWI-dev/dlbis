@@ -28,16 +28,21 @@ import useTableSort from "../../hooks/TableHooks/useTableSort";
 import TableFilter from "../../components/common/Table/TableFilter";
 import Breadcrumb from "../../components/common/Breadcrumb";
 import BulkModal from "../../components/common/BulkModal";
+import useDataFetcher from "../../hooks/useDataFetcher";
+
 import { Link } from "react-router-dom";
 
 
 export default function Dashboard() {
 
 
-  const endpoint = "storage/type";
+  const endpoint = "v1/inventory/title/get";
   //#region Use Effect
-
+  const { data: data } = useDataFetcher(
+    `inventory/title/get/all`
+  );
   //#endregion
+console.log(data);
 
   //#region Inial column
   const columns = [
