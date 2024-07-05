@@ -30,10 +30,10 @@ export default function Login() {
     password: "",
   });
   const toggleVisibility = () => setIsVisible(!isVisible);
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     setIsLoading(true);
-    await POST(endpoint, formData).then((res: any) => {
+     POST(endpoint, formData).then((res: any) => {
       console.log('res', res);
       if (res?.token) {
         showToast(res?.success?.message, "success");
