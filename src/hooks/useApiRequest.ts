@@ -18,7 +18,7 @@ async function fetchApi(
   headers: RequestHeaders = { 'Content-Type': 'application/json'}
 ): Promise<any> {
 
-  const cookieValue = getCookie('dlbis');
+  const cookieValue = getCookie('rrf');
   let accessToken:any = null;
   
   if (cookieValue) {
