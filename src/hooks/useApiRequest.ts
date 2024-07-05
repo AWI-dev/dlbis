@@ -10,6 +10,7 @@ type RequestHeaders = Record<string, string>;
 const { getCookie } = useCookie();
 const { decryptData } = useEncryption(SHARED_KEY);
 
+
 async function fetchApi(
   api: string | null,
   urlPath: string,
@@ -17,14 +18,12 @@ async function fetchApi(
   method: RequestMethod,
   headers: RequestHeaders = { 'Content-Type': 'application/json'}
 ): Promise<any> {
-
   const cookieValue = getCookie('rrf');
   let accessToken:any = null;
   
   if (cookieValue) {
     accessToken = decryptData(cookieValue);
   }
-  console.log('accessToken', accessToken);
   const requestOptions: RequestInit = {
     method,
     headers :{
@@ -38,6 +37,8 @@ async function fetchApi(
     if(api){
       endpoint = api + urlPath;
     }
+    console.log(endpoint);
+    
     const response = await fetch(endpoint, requestOptions as RequestInit);
     return await response.json();
   } catch (err:any) {
