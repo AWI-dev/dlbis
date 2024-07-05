@@ -1,8 +1,13 @@
 import { toast } from "react-toastify";
 import useApiFetch from "../useApiRequest";
+import useCookie from "../../hooks/useCookie";
+import useEncryption from "../../hooks/useEncryption";
+import SHARED_KEY from "../../global/sharedKey";
 
 const useCrud = () => {
-  //#region Utility
+  const { getCookie } = useCookie();
+  const { decryptData } = useEncryption(SHARED_KEY);
+
   const showToast = (message: string, type: "success" | "error") => {
     if (type === "success") {
       toast.success(message, {
@@ -16,32 +21,42 @@ const useCrud = () => {
       });
     }
   };
+
   const handleApiResponse = (response: any, isToast: boolean = true) => {
     if (isToast) {
       if (response.success) {
         showToast(response.success.message, "success");
-        // return response.success.data;
       } else {
         showToast(response.error.message, "error");
       }
     }
     return response?.success?.data;
-
   };
 
   const handleError = (error: any) => {
     showToast(error.message || "An unexpected error occurred", "error");
   };
-  //#endregion
 
-  //#region CRUD
+  const getAuthHeaders = () => {
+    const encryptedToken = getCookie("rrf");
+    if (!encryptedToken) {
+      throw new Error("No authentication token found");
+    }
+    const token = decryptData(encryptedToken);
+    return {
+      Authorization: `Bearer ${token}`,
+    };
+  };
+
   const GET = async (endpoint: string, externalUrl: string = "") => {
     try {
+      const headers = getAuthHeaders();
       const response = await useApiFetch(
         externalUrl,
         `${endpoint}`,
         [],
-        "GET"
+        "GET",
+        headers
       );
       return handleApiResponse(response, false);
     } catch (error: any) {
@@ -56,11 +71,13 @@ const useCrud = () => {
     isToast: boolean = true
   ) => {
     try {
+      const headers = getAuthHeaders();
       const response = await useApiFetch(
         externalUrl,
         endpoint,
         formData,
-        "POST"
+        "POST",
+        headers
       );
       return handleApiResponse(response, isToast);
     } catch (error: any) {
@@ -74,18 +91,19 @@ const useCrud = () => {
     externalUrl: string = ""
   ) => {
     try {
+      const headers = getAuthHeaders();
       const response = await useApiFetch(
         externalUrl,
         `${endpoint}/delete/${id}`,
         [],
-        "DELETE"
+        "DELETE",
+        headers
       );
       return handleApiResponse(response);
     } catch (error: any) {
       handleError(error);
     }
   };
-  //#endregion
 
   return { GET, POST, DELETE };
 };
