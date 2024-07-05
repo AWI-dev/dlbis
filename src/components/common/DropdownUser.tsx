@@ -8,7 +8,7 @@ import useDecryptedUserData from "../../hooks/useDecryptedUserData";
 
 
 export default function DropdownUser() {
-  // const userData = useDecryptedUserData();
+  const userData = useDecryptedUserData();
 
   const { deleteCookie } = useCookie();
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export default function DropdownUser() {
     <div className="flex items-center gap-4">
       <Dropdown placement="bottom-start">
         <DropdownTrigger>
-          {/* <User
+          <User
             as="button"
             avatarProps={{
               isBordered: false,
@@ -33,12 +33,12 @@ export default function DropdownUser() {
             className="transition-transform"
             // description="Job Title"
             name={userData("first_name")} 
-          /> */}s
+          />
         </DropdownTrigger>
         <DropdownMenu className="font-body" aria-label="User Actions" variant="flat">
           <DropdownItem key="profile" className="h-14 gap-2">
             <p className="font-medium">Signed in as</p>
-            {/* <p className="font-bold">{`${userData("prefix") ?? ''} ${userData("first_name")} ${userData("middle_name")} ${userData("last_name")} ${userData("suffix") ?? ''}`}</p> */}
+            <p className="font-bold">{`${userData("prefix") ?? ''} ${userData("first_name")} ${userData("middle_name")} ${userData("last_name")} ${userData("suffix") ?? ''}`}</p>
           </DropdownItem>
           <DropdownItem key="help_and_feedback">
             Help & Feedback
